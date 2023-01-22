@@ -1,6 +1,6 @@
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/Hackathon/AequitasData.json', true);
+xhr.open('GET', '/Hackathon/Alpha.json', true);
 xhr.responseType = 'json';
 let data_response
 let chart
@@ -10,13 +10,12 @@ const colors = {
   Yellow: "rgba(255, 205, 86, 0.7)",
   Orange: "rgba(255, 99, 132, 0.7)",
   Purple: "rgba(141, 108, 171, 0.7)",
-  White: "rgba(0,0,0,0.7)"
 }
 xhr.onload = function() {
   var status = xhr.status;
   if (status === 200) {
     data_response = xhr.response;
-    const ctx = document.getElementById('myChartA');
+    const ctx = document.getElementById('myChartB');
 
     let labels = []
 
@@ -72,57 +71,26 @@ $.getJSON("/Hackathon/AequitasData.json", function (data) {
   console.log(data);
   console.log("MAFANCULO")
   let counter = 0
+  document.addEventListener("click", function()
+  {
+    stupid_function(counter)
+    counter++
+  })
+})
 
-  function myLoop() {         //  create a loop function
-    setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-      removeStagnant(data_set)
-        data_set = stupid_function(counter++)
-       
-          i++;                    //  increment the counter
-      if (i < data_response.length) {           //  if the counter < 10, call the loop function
-        myLoop();             //  ..  again which will trigger another 
-      }                       //  ..  setTimeout()
-    }, 100)
-  }
-
-  myLoop();
-
-});
-let i = 1;
 function stupid_function(counter)
 {
   single_message = data_response[counter]
   label = single_message.OrderID
   let message_direction = single_message.Direction
-  
   data_set = updateDataSet(data_set, label, message_direction)   
   updateChart(chart, data_set)
- return data_set
 }
-let rm_stk = [];
-function removeStagnant(data_set)
-{
-  
-  for(let i = 0 ;i < data_set[0].length ; i ++ )
 
-  {
-    while (rm_stk.length != 0) {
-      let rmi = rm_stk.pop();
-      data_set[0].splice(rmi,1)
-      data_set[1].splice(rmi,1)
-      data_set[2].splice(rmi,1)
-    }
-    console.log(data_set[1][i])
-    if(data_set[1][i] == 4)
-    {
-      rm_stk.push(i);
-    }
-  }
-  return data_set
-}
+
 
 function updateDataSet(data_set, label, message_direction){
-  // console.log("MESSAGE DIRECTION : " + message_direction)
+  console.log("MESSAGE DIRECTION : " + message_direction)
   if(data_set[0] == undefined || data_set[0].length == 0 )
   {
     if( message_direction === "NBFToExchange")
@@ -147,18 +115,12 @@ function updateDataSet(data_set, label, message_direction){
         {
           data_set[1][i] = ++data_set[1][i];
           data_set[2][i] = colors.Yellow
-        }else if(data_set[1][i] == 2 && message_direction === "Trade")
-        {
-          let temp = data_set[1][i];
-          temp = temp + 2;
-          data_set[1][i] = ++data_set[1][i];
-          data_set[2][i] = colors.White
         }else if(data_set[1][i] == 3 && message_direction === "ExchangeToNBF")
         {
           data_set[1][i] = ++data_set[1][i];
           data_set[2][i] = colors.Orange
         }else{
-          data_set[1][i] = 6
+          data_set[1][i] = 5
           data_set[2][i] = colors.Purple
         }
         return data_set
@@ -190,6 +152,9 @@ function sleep(milliseconds) {
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
 }
+
+
+
 
 
 async function createDelay(delay)
