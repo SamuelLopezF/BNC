@@ -10,14 +10,13 @@ const colors = {
   Yellow: "rgba(255, 205, 86, 0.7)",
   Orange: "rgba(255, 99, 132, 0.7)",
   Purple: "rgba(141, 108, 171, 0.7)",
-  White: "rgba(0,0,0,0.7)"
+  White: "rgba: 49, 51, 53, 0.7" 
 }
 xhr.onload = function() {
   var status = xhr.status;
   if (status === 200) {
     data_response = xhr.response;
     const ctx = document.getElementById('myChartA');
-
     let labels = []
 
     let data = {
@@ -25,9 +24,7 @@ xhr.onload = function() {
         datasets: [{
           data: [],
         }]
-
     }
-
     chart = new Chart(ctx, {
       type : 'bar',
       data : data,
@@ -52,7 +49,6 @@ xhr.onload = function() {
         }
       }
     })
-
 
   } else {
     console.log("could not load data")
@@ -102,9 +98,7 @@ function stupid_function(counter)
 let rm_stk = [];
 function removeStagnant(data_set)
 {
-  
   for(let i = 0 ;i < data_set[0].length ; i ++ )
-
   {
     while (rm_stk.length != 0) {
       let rmi = rm_stk.pop();

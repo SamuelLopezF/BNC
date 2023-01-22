@@ -1,6 +1,6 @@
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/Hackathon/AlphaData.json', true);
+xhr.open('GET', '/Hackathon/TSXData.json', true);
 xhr.responseType = 'json';
 let data_response
 let chart
@@ -17,7 +17,7 @@ xhr.onload = function() {
   var status = xhr.status;
   if (status === 200) {
     data_response = xhr.response;
-    const ctx = document.getElementById('myChartB');
+    const ctx = document.getElementById('myChartC');
     let labels = []
 
     let data = {
@@ -65,9 +65,8 @@ data_set[1] = value_set
 data_set[2] = colors_set 
 xhr.send();
 
-$.getJSON("/Hackathon/AlphaData.json", function (data) {
+$.getJSON("/Hackathon/TSXData.json", function (data) {
   console.log(data);
-  console.log("MAFANCULO")
   let counter = 0
 
   function myLoop() {         //  create a loop function
