@@ -1,4 +1,3 @@
-
 var xhr = new XMLHttpRequest();
 xhr.open('GET', '/Hackathon/AequitasData.json', true);
 xhr.responseType = 'json';
@@ -8,7 +7,6 @@ xhr.onload = function() {
   var status = xhr.status;
   if (status === 200) {
     data_response = xhr.response;
-    // console.log(data_response)
     const ctx = document.getElementById('myChart');
 
     let labels = []
@@ -31,25 +29,13 @@ xhr.onload = function() {
       }
     })
 
-    let data_set = new Array(2);
-    let key_set = new Array()
-    let value_set = new Array();
-
-    data_set[0] = key_set
-    data_set[1] = value_set
-
 
   } else {
     console.log("could not load data")
   }
 };
 
-let data_set = new Array(2);
-let key_set = new Array()
-let value_set = new Array();
-
-data_set[0] = key_set
-data_set[1] = value_set
+let dataset = new Map();
 
 xhr.send();
 const delay = (delayInms) => {
@@ -68,16 +54,6 @@ $.getJSON("/Hackathon/AequitasData.json", function (data) {
   console.log(data);
   console.log("MAFANCULO")
   let counter = 0
-
-    // while (true) {
-    //     stupid_function(counter++);
-    // }
-  //sample(counter);
-
-  // setTimeout(async () => {
-  //    await stupid_function(counter++);
-
-  //  }, 1000);
 
 function myLoop() {         //  create a loop function
   setTimeout(function() {   //  call a 3s setTimeout when the loop is called
@@ -108,8 +84,8 @@ function stupid_function(counter)
   console.log("click")
   single_message = data_response[counter]
   label = single_message.OrderID
-  data_set = updateDataSet(data_set, label)    
-  updateChart(chart, data_set)
+  dataset = updateDataSet(dataset, label)    
+  updateChart(chart, dataset)
 }
 
 
@@ -117,48 +93,24 @@ function stupid_function(counter)
 /*
  * Check if dataset contains label and increment request stage as required.
  */
-function updateDataSet(data_set, label){
-  if (data_set[0] == undefined || data_set[0].length == 0)
-  {
-    data_set[0].push(label)
-    data_set[1].push(1)
-  }else{
-    for(let i = 0 ; i < data_set[0].length; i ++)
-    {
-      if(data_set[0][i] === label)
-      {
-        data_set[1][i] = ++data_set[1][i]
-        return data_set
-      }
-    }
-    data_set[0].push(label)
-    data_set[1].push(1)
+function updateDataSet(dataset, label) {
+  if (!dataset.has(label)) {
+      dataset.set(label, 1);
+  } else {
+      var prev_val = dataset.get(label);
+      dataset.set(label, prev_val+1);
   }
-  return data_set
+
+  return dataset;
 }
 
 
-function updateChart(chart,data_set)
+function updateChart(chart, dataset)
 { 
-  let key_set = data_set[0]
-  let value_set = data_set[1]
-  // console.log("hello BOII")
-  // console.log(key_set)
-  // console.log(value_set)
-  chart.data.datasets[0].data = value_set
-  chart.data.labels = key_set
+  chart.data.datasets[0].data = Array.from(dataset.values());
+  chart.data.labels = Array.from(dataset.keys());
   chart.update();
 }
-
-// function sleep(milliseconds) {
-//   const date = Date.now();
-//   let currentDate = null;
-//   do {
-//     currentDate = Date.now();
-//   } while (currentDate - date < milliseconds);
-// }
-
-
 
 async function extract_next_message(data)
 {
