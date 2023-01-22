@@ -89,16 +89,25 @@ function stupid_function(counter)
 }
 
 
-
 /*
  * Check if dataset contains label and increment request stage as required.
  */
+let rm_stack = [];
 function updateDataSet(dataset, label) {
+  /* Remove cancelled transactions. */
+  while (rm_stack.length != 0) {
+      dataset.delete(rm_stack.pop());
+  }
+
   if (!dataset.has(label)) {
       dataset.set(label, 1);
   } else {
       var prev_val = dataset.get(label);
       dataset.set(label, prev_val+1);
+      /* Add to remove stack. */
+      if (dataset.get(label) == 4) {
+          rm_stack.push(label);
+      }
   }
 
   return dataset;
