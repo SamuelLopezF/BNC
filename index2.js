@@ -79,7 +79,7 @@ $.getJSON("/Hackathon/AlphaData.json", function (data) {
       if (i < data_response.length) {           //  if the counter < 10, call the loop function
         myLoop();             //  ..  again which will trigger another 
       }                       //  ..  setTimeout()
-    }, 100)
+    }, 500)
   }
 
   myLoop();
@@ -108,7 +108,7 @@ function removeStagnant(data_set)
       data_set[2].splice(rmi,1)
     }
     console.log(data_set[1][i])
-    if(data_set[1][i] == 4)
+    if(data_set[1][i] == 5)
     {
       rm_stk.push(i);
     }
@@ -145,7 +145,7 @@ function updateDataSet(data_set, label, message_direction){
         }else if(data_set[1][i] == 2 && message_direction === "Trade")
         {
           let temp = data_set[1][i];
-          temp = temp + 2;
+          temp = temp + 4;
           data_set[1][i] = ++data_set[1][i];
           data_set[2][i] = colors.White
         }else if(data_set[1][i] == 3 && message_direction === "ExchangeToNBF")
