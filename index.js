@@ -2,12 +2,13 @@
 var xhr = new XMLHttpRequest();
 xhr.open('GET', '/Hackathon/AequitasData.json', true);
 xhr.responseType = 'json';
-
+let data_response
+let chart
 xhr.onload = function() {
   var status = xhr.status;
   if (status === 200) {
-    var data_response = xhr.response;
-    console.log(data_response)
+    data_response = xhr.response;
+    // console.log(data_response)
     const ctx = document.getElementById('myChart');
 
     let labels = []
@@ -20,7 +21,7 @@ xhr.onload = function() {
       }]
     }
 
-    let chart = new Chart(ctx, {
+    chart = new Chart(ctx, {
       type : 'bar',
       data : data,
       options : { 
@@ -30,7 +31,6 @@ xhr.onload = function() {
       }
     })
 
-
     let data_set = new Array(2);
     let key_set = new Array()
     let value_set = new Array();
@@ -38,15 +38,15 @@ xhr.onload = function() {
     data_set[0] = key_set
     data_set[1] = value_set
 
-    // loop back here
-    for(let i = 0 ; i < 10; i ++)
-    {
-      single_message = data_response[i]
-      label = single_message.OrderID
-     data_set = updateDataSet(data_set, label)    
-     updateChart(chart, data_set)
-    }
-//waiit for 10 ms
+
+    // for(let i = 0 ; i < 10; i ++)
+    // {
+    //   single_message = data_response[i]
+    //   label = single_message.OrderID
+    //   data_set = updateDataSet(data_set, label)    
+    //   updateChart(chart, data_set)
+    //   // sleep(1000)
+    // }
 
 
   } else {
@@ -54,7 +54,37 @@ xhr.onload = function() {
   }
 };
 
+let data_set = new Array(2);
+let key_set = new Array()
+let value_set = new Array();
+
+data_set[0] = key_set
+data_set[1] = value_set
+
 xhr.send();
+
+$.getJSON("/Hackathon/AequitasData.json", function (data) {
+  console.log(data);
+  console.log("MAFANCULO")
+  let counter = 0
+  document.addEventListener("click", function()
+  {
+    stupid_function(counter)
+    counter++
+  })
+
+})
+
+function stupid_function(counter)
+{
+  console.log("click")
+  single_message = data_response[counter]
+  label = single_message.OrderID
+  data_set = updateDataSet(data_set, label)    
+  updateChart(chart, data_set)
+}
+
+
 
 function updateDataSet(data_set, label){
   if(data_set[0] == undefined || data_set[0].length == 0 )
@@ -81,12 +111,20 @@ function updateChart(chart,data_set)
 { 
   let key_set = data_set[0]
   let value_set = data_set[1]
-  console.log("hello BOII")
-  console.log(key_set)
-  console.log(value_set)
+  // console.log("hello BOII")
+  // console.log(key_set)
+  // console.log(value_set)
   chart.data.datasets[0].data = value_set
   chart.data.labels = key_set
   chart.update();
+}
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
 }
 
 // function updateChartData(chart, label, data )
