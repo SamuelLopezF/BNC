@@ -29,17 +29,28 @@ xhr.onload = function() {
         }
       }
     })
+
+
     let data_set = new Array(2);
     let key_set = new Array()
     let value_set = new Array();
 
     data_set[0] = key_set
     data_set[1] = value_set
+
+    // loop back here
     let single_message = data_response[0]
     let label = single_message.OrderID
     data_set = updateDataSet(data_set, label)    
     updateChart(chart, data_set)
 
+     single_message = data_response[1]
+    console.log(single_message)
+     label = single_message.OrderID
+    data_set = updateDataSet(data_set, label)    
+    updateChart(chart, data_set)
+
+//waiit for 10 ms
 
 
   } else {
@@ -53,17 +64,18 @@ function updateDataSet(data_set, label){
   if(data_set[0] == undefined || data_set[0].length == 0 )
   {
     data_set[0].push(label)
-    data_set[1].push(2)
+    data_set[1].push(1)
   }else{
     for(let i = 0 ; i < data_set[0].length; i ++)
     {
-    if(data_set[0][i] === label)
-    {
-      data_set[1][i] = ++data_set[1][i]
-    }else{
-      console.log("could not find matching label ??")
+      if(data_set[0][i] === label)
+      {
+        data_set[1][i] = ++data_set[1][i]
+        return data_set
+      }
     }
-    }
+    data_set[0].push(label)
+    data_set[1].push(1)
   }
   return data_set
 }
