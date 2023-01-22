@@ -39,17 +39,13 @@ xhr.onload = function() {
     data_set[1] = value_set
 
     // loop back here
-    let single_message = data_response[0]
-    let label = single_message.OrderID
-    data_set = updateDataSet(data_set, label)    
-    updateChart(chart, data_set)
-
-     single_message = data_response[1]
-    console.log(single_message)
-     label = single_message.OrderID
-    data_set = updateDataSet(data_set, label)    
-    updateChart(chart, data_set)
-
+    for(let i = 0 ; i < 10; i ++)
+    {
+      single_message = data_response[i]
+      label = single_message.OrderID
+     data_set = updateDataSet(data_set, label)    
+     updateChart(chart, data_set)
+    }
 //waiit for 10 ms
 
 
