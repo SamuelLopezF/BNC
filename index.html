@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <div>
+  <ul>
+    <li><h1 id = "AN">Route Anomally</h1></li>
+    <li><h1 id = "CA">Cancel Ack</h1></li>
+    <li><h1 id = "CS">Cancel Sent</h1></li>
+    <li><h1 id = "RA">Request Ack</h1></li>
+    <li><h1 id = "RS">Request Sent</h1></li>
+  </ul>
   <canvas id = "myChart"></canvas>
+</div>
+
   <script src="/Hackathon/AequitasData.json"></script>
   <script type="text/javascript" src="index.js"></script>
-  <button id = "my_button">Update</button>
 </body>

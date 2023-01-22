@@ -1,0 +1,44 @@
+h1{
+  display : flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+div{
+  display: flex;
+  align-items: top;
+}
+#AN {
+  color: rgba(141, 108, 171, 0.7);
+}
+#RS {
+  color : rgba(54, 162, 235, 0.7);
+}
+
+#RA {
+  color : rgba(75, 192, 192, 0.7);
+}
+
+#CS {
+  color : rgba(255, 205, 86, 0.7);
+}
+
+#CA {
+  color : rgba(255, 99, 132, 0.7)
+}
+
+ul {
+  height: 80%;
+}
+
+li {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 10%;
+  height: 20%;
+  padding: 0 ;
+}
